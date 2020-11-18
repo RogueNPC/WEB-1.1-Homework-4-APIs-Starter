@@ -70,7 +70,7 @@ def results():
         # TODO: Enter query parameters here for the 'appid' (your api key),
         # the city, and the units (metric or imperial).
         # See the documentation here: https://openweathermap.org/current
-        'appid': API_KEY,
+        'appid': 'a1388af02238367d0f7cfd6404aef15a', # os.getenv('API_KEY')
         'city': city,
         'units': units
     }
@@ -87,15 +87,15 @@ def results():
     # datetime objects. You can do so using the `datetime.fromtimestamp()` 
     # function.
     context = {
-        'date': datetime.now(),
-        'city': result_json['name'],
-        'description': result_json['weather']['description'],
-        'temp': result_json['main']['temp'],
-        'humidity': result_json['main']['humidity'],
-        'wind_speed': result_json['wind']['speed'],
-        'sunrise': datetime.fromtimestamp( result_json['sys']['sunrise'], result_json['timezone'] ),
-        'sunset': datetime.fromtimestamp( result_json['sys']['sunset'], result_json['timezone'] ),
-        'units_letter': get_letter_for_units(units)
+        # 'date': datetime.now(),
+        # 'city': city,
+        # 'description': result_json['weather'][0]['description'],
+        # 'temp': result_json['main']['temp'],
+        # 'humidity': result_json['main']['humidity'],
+        # 'wind_speed': result_json['wind']['speed'],
+        # 'sunrise': datetime.fromtimestamp( result_json['sys']['sunrise'], result_json['timezone'] ),
+        # 'sunset': datetime.fromtimestamp( result_json['sys']['sunset'], result_json['timezone'] ),
+        # 'units_letter': get_letter_for_units(units)
     }
 
     return render_template('results.html', **context)
