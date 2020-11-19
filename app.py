@@ -104,13 +104,21 @@ def get_min_temp(results):
     """Returns the minimum temp for the given hourly weather objects."""
     # TODO: Fill in this function to return the minimum temperature from the
     # hourly weather data.
-    return results['main']['temp_min']
+    min_temp = 9999
+    for entry in results:
+        if entry['temp'] < min_temp:
+            min_temp = entry['temp']
+    return min_temp
 
 def get_max_temp(results):
     """Returns the maximum temp for the given hourly weather objects."""
     # TODO: Fill in this function to return the maximum temperature from the
     # hourly weather data.
-    return results['main']['temp_max']
+    max_temp = 0
+    for entry in results:
+        if entry['temp'] > max_temp:
+            max_temp = entry['temp']
+    return max_temp
 
 def get_lat_lon(city_name):
     geolocator = Nominatim(user_agent='Weather Application')
@@ -126,7 +134,7 @@ def historical_results():
     # TODO: Use 'request.args' to retrieve the city & units from the query
     # parameters.
     city = request.args.get('city')
-    date = '2020-08-26'
+    date = request.args.get('date')
     units = request.args.get('units')
     date_obj = datetime.strptime(date, '%Y-%m-%d')
     date_in_seconds = date_obj.strftime('%s')
@@ -143,7 +151,7 @@ def historical_results():
         'lat': latitude,
         'lon': longitude,
         'units': units,
-        'date': date_in_seconds
+        'dt': date_in_seconds
     }
 
     result_json = requests.get(url, params=params).json()
